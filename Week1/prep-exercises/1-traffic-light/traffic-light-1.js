@@ -1,16 +1,24 @@
-"use strict";
+'use strict';
 /**
  * The `state` property says what the traffic light's state (i.e. colour) is at
  * that moment.
  */
 const trafficLight = {
-  state: "green",
+  state: 'green',
 };
 
 let rotations = 0;
 while (rotations < 2) {
   const currentState = trafficLight.state;
-  console.log("The traffic light is on", currentState);
+  if (currentState === 'green') {
+    trafficLight.state = 'orange';
+  } else if (currentState == 'orange') {
+    trafficLight.state = 'red';
+  } else if (currentState == 'red') {
+    trafficLight.state = 'green';
+    rotations++;
+  }
+  console.log('The traffic light is on', currentState);
 
   // TODO
   // if the color is green, turn it orange
