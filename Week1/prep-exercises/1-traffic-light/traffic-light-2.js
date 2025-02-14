@@ -1,24 +1,68 @@
-"use strict";
+'use strict';
 /**
  * The `possibleStates` property define the states (in this case: colours)
  * in which the traffic light can be.
  * The `stateIndex` property indicates which of the possible states is current.
  */
 const trafficLight = {
-  possibleStates: ["green", "orange", "red"],
+  possibleStates: ['green', 'orange', 'red'],
   stateIndex: 0,
 };
 
 let cycle = 0;
+
 while (cycle < 2) {
   const currentState = trafficLight.possibleStates[trafficLight.stateIndex];
-  console.log("The traffic light is on", currentState);
+
+  if (currentState == 'green') {
+    trafficLight.stateIndex = 1;
+  } else if (currentState == 'orange') {
+    trafficLight.stateIndex = 2;
+  } else if (currentState == 'red') {
+    trafficLight.stateIndex = 0;
+    cycle++;
+  }
+  console.log('The traffic light is on', currentState);
 
   // TODO
   // if the color is green, turn it orange
   // if the color is orange, turn it red
   // if the color is red, add 1 to cycles and turn it green
 }
+
+// do while loop
+
+// do {
+//   const currentState = trafficLight.possibleStates[trafficLight.stateIndex];
+//   if (currentState == 'green') {
+//     trafficLight.stateIndex = 1
+//   } else if (currentState == "orange") {
+//     trafficLight.stateIndex = 2
+//   } else if (currentState == 'red') {
+//     trafficLight.stateIndex = 0
+//     cycle++
+//   }
+//   console.log("The traffic light is on", currentState);
+
+// } while (cycle < 2)
+
+//for loop
+
+// for (let i = 0; i < 2;) {
+//   const currentState = trafficLight.possibleStates[trafficLight.stateIndex];
+//   if (currentState == 'green') {
+//     trafficLight.stateIndex = 1
+//   } else if (currentState == "orange") {
+//     trafficLight.stateIndex = 2
+//   } else if (currentState == 'red') {
+//     trafficLight.stateIndex = 0
+//     i++
+//   }
+//   console.log("The traffic light is on", currentState);
+
+// }
+
+// In a for loop, I use i instead of cycle, so I treat it like a cycle. I want to increase it when the color is red.
 
 /**
  * The output should be:
