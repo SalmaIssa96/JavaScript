@@ -1,6 +1,6 @@
-"use strict";
+'use strict';
 
-function runExperiment(sampleSize) {
+function runExperiment(sampleSize = 100) {
   const valueCounts = [0, 0, 0, 0, 0, 0];
 
   // TODO
@@ -8,11 +8,15 @@ function runExperiment(sampleSize) {
   // In each loop iteration:
   //
   // 1. Generate a random integer between 1 and 6 (as if throwing a six-sided die).
+
   // 2. Add `1` to the element of the `valueCount` that corresponds to the random
   //    value from the previous step. Use the first element of `valueCounts`
   //    for keeping a count how many times the value 1 is thrown, the second
   //    element for value 2, etc.
-
+  for (let i = 1; i <= sampleSize; i++) {
+    const randomNumber = Math.floor(Math.random() * 6);
+    ++valueCounts[randomNumber];
+  }
   const results = [];
 
   // TODO
@@ -25,12 +29,19 @@ function runExperiment(sampleSize) {
   //    two decimals, e.g. '14.60'.
   // 3. Then push that string onto the `results` array.
 
+  for (const count of valueCounts) {
+    results.push(((count / sampleSize) * 100).toFixed(2));
+  }
   return results;
 }
 
 function main() {
   const sampleSizes = [100, 1000, 1000000];
 
+  for (const size of sampleSizes) {
+    const result = runExperiment(size);
+    console.log(result, size);
+  }
   // TODO
   // Write a for..of loop that calls the `runExperiment()` function for each
   // value of the `sampleSizes` array.

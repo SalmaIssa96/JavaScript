@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 /**
  * The `trafficLight` object is now no longer a global variable. Instead,
  * it is defined in function `main()` and passed as a parameter to other
@@ -9,6 +9,8 @@ function getCurrentState(trafficLight) {
   // TODO
   // Should return the current state (i.e. colour) of the `trafficLight`
   // object passed as a parameter.
+  const { stateIndex, possibleStates } = trafficLight;
+  return possibleStates[stateIndex];
 }
 
 function getNextStateIndex(trafficLight) {
@@ -17,6 +19,9 @@ function getNextStateIndex(trafficLight) {
   // - if the color is green, it will turn to orange
   // - if the color is orange, it will turn to red
   // - if the color is red, it will turn to green
+  let { stateIndex, possibleStates } = trafficLight;
+  const possibleStatesLength = possibleStates.length;
+  return stateIndex >= possibleStatesLength - 1 ? 0 : ++stateIndex;
 }
 
 // This function loops for the number of seconds specified by the `secs`
@@ -33,13 +38,13 @@ function waitSync(secs) {
 
 function main() {
   const trafficLight = {
-    possibleStates: ["green", "orange", "red"],
+    possibleStates: ['green', 'orange', 'red'],
     stateIndex: 0,
   };
 
   for (let cycle = 0; cycle < 6; cycle++) {
     const currentState = getCurrentState(trafficLight);
-    console.log(cycle, "The traffic light is now", currentState);
+    console.log(cycle, 'The traffic light is now', currentState);
 
     waitSync(1); // Wait a second before going to the next state
     trafficLight.stateIndex = getNextStateIndex(trafficLight);
