@@ -22,16 +22,43 @@ const bankAccount = {
     {
       prevAmount: 350,
       newAmount: 250,
-      reason: "Donation",
+      reason: 'Donation',
     },
   ],
 };
+const payExpense = (amount, expenseReason) => {
+  const { currentBalance, transactions } = bankAccount;
+  if (currentBalance >= amount) {
+    bankAccount.currentBalance = currentBalance - amount;
+    bankAccount.transactions = [
+      ...transactions,
+      {
+        prevAmount: currentBalance,
+        newAmount: currentBalance - amount,
+        reason: expenseReason,
+      },
+    ];
+    return true;
+  } else {
+    return false;
+  }
+};
 
 const donateMoney = (amount, onSuccess, onFail) => {
-  // TODO complete this function
+  const successfulPayment = payExpense(amount, 'Donation');
+  if (successfulPayment) {
+    onSuccess();
+  } else {
+    onFail();
+  }
 };
 const payRent = (amount, onSuccess, onFail) => {
-  // TODO complete this function
+  const successfulPayment = payExpense(amount, 'Rent');
+  if (successfulPayment) {
+    onSuccess();
+  } else {
+    onFail();
+  }
 };
 
 /**
@@ -39,17 +66,17 @@ const payRent = (amount, onSuccess, onFail) => {
  */
 
 const onSuccessEnglish = () => {
-  console.log("Payment successful! Thank you!");
+  console.log('Payment successful! Thank you!');
 };
 const onFailEnglish = () => {
-  console.log("You do not have enough money to make this payment.");
+  console.log('You do not have enough money to make this payment.');
 };
 
 const onSuccessDutch = () => {
-  console.log("Betaling geslaagd! Dank u!");
+  console.log('Betaling geslaagd! Dank u!');
 };
 const onFailDutch = () => {
-  console.log("U heeft niet voldoende saldo om deze betaling te doen.");
+  console.log('U heeft niet voldoende saldo om deze betaling te doen.');
 };
 
 donateMoney(100, onSuccessEnglish, onFailEnglish);
