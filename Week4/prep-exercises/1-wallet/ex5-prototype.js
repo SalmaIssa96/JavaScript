@@ -3,6 +3,8 @@ import eurosFormatter from './euroFormatter.js';
 function Wallet(name, cash) {
   this._name = name;
   this._cash = cash;
+  this._dailyAllowance = 40;
+  this._dayTotalWithdrawals = 0;
 }
 
 Wallet.prototype.deposit = function (amount) {
@@ -26,7 +28,9 @@ Wallet.prototype.transferInto = function (wallet, amount) {
     } to ${wallet.getName()}`
   );
   const withdrawnAmount = this.withdraw(amount);
-  wallet.deposit(withdrawnAmount);
+  if (withdrawnAmount > 0) {
+    wallet.deposit(withdrawnAmount);
+  }
 };
 
 Wallet.prototype.reportBalance = function () {
@@ -35,6 +39,14 @@ Wallet.prototype.reportBalance = function () {
   );
 };
 
+Wallet.prototype.setDailyAllowance = function (newAllowance) {
+  this._dailyAllowance = newAllowance;
+  console.log(`Daily allowance set to: ${eurosFormatter.format(newAllowance)}`);
+};
+
+Wallet.prototype.resetDailyAllowance = function () {
+  this._dayTotalWithdrawals = 0;
+};
 Wallet.prototype.getName = function () {
   return this._name;
 };
@@ -45,6 +57,7 @@ function main() {
   const walletJane = new Wallet('Jane', 20);
 
   walletJack.transferInto(walletJoe, 50);
+  walletJack.setDailyAllowance(80);
   walletJane.transferInto(walletJoe, 25);
 
   walletJane.deposit(20);
