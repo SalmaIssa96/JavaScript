@@ -29,6 +29,7 @@ export default class Cell {
 
     if (this.alive) {
       // Draw living this inside background
+      // let opacity1 = Math.min(0.25 * this.lifeTime, 1);
       let opacity = 0;
       if (this.lifeTime === 1) {
         opacity = 0.25;
@@ -54,19 +55,11 @@ export default class Cell {
     if (aliveNeighbors === 2) {
       // Living cell remains living, dead cell remains dead
       this.nextAlive = this.alive;
-      if (this.alive) {
-        this.lifeTime++;
-      } else {
-        this.lifeTime = 0;
-      }
+
+      this.lifeTime++;
     } else if (aliveNeighbors === 3) {
-      // Dead cell becomes living, living cell remains living
-      if (!this.alive) {
-        this.lifeTime = 1;
-      } else {
-        this.lifeTime++;
-      }
       this.nextAlive = true;
+      this.lifeTime++;
     } else {
       // Living cell dies, dead cell remains dead
       this.nextAlive = false;
